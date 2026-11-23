@@ -1,23 +1,23 @@
 import { renderEMRView } from './shared/emr.mjs';
-import { admittingDiagnosis, bedsideFeed, inpatientNotes, inpatientTables, procedure } from './inpatient-record.mjs';
+import { admittingDiagnosis, bedsideFeed, inpatientNotes, inpatientTables, procedure, pumpHistory } from './inpatient-record.mjs';
 
 const patient = {
   name: 'Elena Reyes', age: '58', sex: 'Female', mrn: 'SIM-5103-031',
-  location: 'Surgical inpatient', admission: 'Hospital day 1', height: '165 cm',
+  location: 'Surgical inpatient', admission: '11/13/2028 · 07:15 CT', height: '165 cm',
   diagnosis: admittingDiagnosis
 };
 
 const weightHistory = 'Date | Weight | Source\nAdmission | 66 kg | Standing scale\nOne month before admission | 69 kg | Outpatient chart';
 const encounters = {
   en: {
-    title: 'Hospital day 3 · EN consult',
+    title: 'EN consult · 11/15/2028 · 11:00 CT',
     consult: 'Verify the running feed and recommend ongoing enteral nutrition.',
     chart: {
       'Weight History': weightHistory
     }
   },
   pn: {
-    title: 'Hospital day 7 · PN consult',
+    title: 'PN consult · 11/19/2028 · 09:00 CT',
     consult: 'Develop the initial parenteral nutrition recommendation.',
     chart: {
       'Weight History': weightHistory
@@ -37,10 +37,21 @@ const enNoteSaved = readNote('en');
 const stage = enNoteSaved && new URLSearchParams(location.search).get('encounter') === 'pn' ? 'pn' : 'en';
 const encounter = encounters[stage];
 element('encounter-heading').textContent = encounter.title;
-element('note-context').textContent = `${admittingDiagnosis} · ${procedure} · NPO · 165 cm · Admission 66 kg · Prior 69 kg · Admission MST 2 · ${encounter.title}`;
-element('encounter-instructions').textContent = stage === 'en'
-  ? 'Inspect the bedside pump and compare its formula and rate with the chart orders. Then interview Elena, her family, the provider, and the bedside nurse in PlayLab and document your EN recommendation. Export your note as a PDF to continue.'
-  : 'Review the updated chart and use PlayLab to follow up with the care team. Then chart your PN recommendation.';
+const composer = element('note-composer');
+const noteContext = element('note-context');
+for (const [label, value] of [
+  ['Admitting diagnosis', admittingDiagnosis], ['Current diet', 'NPO by mouth'],
+  ['Height', patient.height], ['Admission weight', '66 kg'], ['Prior weight', '69 kg'],
+  ['Admission BMI', '24.2 kg/m²'], ['Admission MST', '2'], ['Consult', encounter.title]
+]) {
+  const tile = document.createElement('div');
+  const term = document.createElement('dt');
+  const detail = document.createElement('dd');
+  term.textContent = label;
+  detail.textContent = value;
+  tile.append(term, detail);
+  noteContext.append(tile);
+}
 const form = element('nutrition-note');
 const fields = Array.from(form.querySelectorAll('[name]'));
 const savedNote = readNote(stage);
@@ -66,7 +77,7 @@ form.addEventListener('submit', event => {
   const heading = document.createElement('h1');
   heading.textContent = 'RD Nutrition Assessment / Progress Note';
   const context = document.createElement('p');
-  context.textContent = `Simulation · ${patient.name} · ${encounter.title} · ${new Date().toLocaleString()}`;
+  context.textContent = `Simulation · ${patient.name} · ${encounter.title} · ${new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', dateStyle: 'short', timeStyle: 'short', hourCycle: 'h23' }).format(new Date()) + ' CT'}`;
   const summary = document.createElement('p');
   summary.textContent = `${admittingDiagnosis}. ${procedure}. Admission weight 66 kg; height 165 cm; MST 2.`;
   report.replaceChildren(heading, context, summary);
@@ -97,6 +108,25 @@ renderEMRView(chart, {
     tables: inpatientTables(stage)
   },
   selectedTab: "Dashboard",
+  onSelect(name) {
+    if (name !== 'Notes') return;
+    const panel = chart.querySelector('[role="tabpanel"]');
+    const toolbar = document.createElement('div');
+    toolbar.className = 'gpnd-nav notes-toolbar';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = '+ Documentation';
+    button.setAttribute('aria-controls', composer.id);
+    button.setAttribute('aria-expanded', String(!composer.hidden));
+    button.onclick = () => {
+      composer.hidden = !composer.hidden;
+      button.setAttribute('aria-expanded', String(!composer.hidden));
+      if (!composer.hidden) composer.querySelector('select').focus();
+    };
+    toolbar.append(button);
+    panel.prepend(toolbar);
+    toolbar.after(composer);
+  },
   assessmentLink: false
 });
 
@@ -106,6 +136,19 @@ if (stage === 'en') {
   pump.hidden = false;
   element('pump-formula').textContent = bedsideFeed.formula;
   element('pump-rate').textContent = bedsideFeed.rate;
+  const dialog = element('pump-dialog');
+  pump.onclick = () => dialog.showModal();
+  const history = element('pump-history');
+  const historyButton = element('pump-history-button');
+  historyButton.onclick = () => {
+    history.hidden = !history.hidden;
+    historyButton.setAttribute('aria-expanded', String(!history.hidden));
+  };
+  for (const [time, event] of pumpHistory) {
+    const entry = document.createElement('li');
+    entry.textContent = time + ' — ' + event;
+    history.querySelector('ol').append(entry);
+  }
 } else {
   element('room-photo').src = 'room-pn.webp';
   element('room-photo').alt = 'Elena Reyes in a hospital bed beside a computer and IV pump';

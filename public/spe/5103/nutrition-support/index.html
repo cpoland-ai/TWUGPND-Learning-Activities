@@ -23,25 +23,32 @@
 <header>
 <p class="eyebrow">NFS 5103 · Competency Synthesis</p>
 <h1>EN/PN Simulation</h1>
-<p id="encounter-instructions"></p>
 </header>
 <section id="encounter" aria-labelledby="encounter-heading">
 <h2 id="encounter-heading"></h2>
 <div class="encounter-room" id="patient-room">
   <img id="room-photo" src="room.webp" width="836" height="471" alt="Elena Reyes in a hospital bed beside a computer and enteral feeding pump">
   <button id="open-chart" type="button" aria-controls="emr-workspace">Open patient chart</button>
-  <details id="pump-reading" hidden>
-    <summary>Inspect feeding pump</summary>
-    <dl><div><dt>Bag label</dt><dd id="pump-formula"></dd></div>
-      <div><dt>Pump display · Running</dt><dd id="pump-rate"></dd></div></dl>
-  </details>
+  <button id="pump-reading" type="button" hidden>Inspect feeding pump</button>
 </div>
+<dialog id="pump-dialog" aria-labelledby="pump-title">
+  <form method="dialog"><button type="submit" aria-label="Close pump inspection">Close</button></form>
+  <h3 id="pump-title">Bedside feeding pump</h3>
+  <div class="pump-inspection">
+    <div class="formula-bag"><span>Enteral formula</span><strong id="pump-formula"></strong></div>
+    <div class="pump-device">
+      <div class="pump-screen"><span>Running</span><strong id="pump-rate"></strong></div>
+      <button type="button" id="pump-history-button" aria-expanded="false" aria-controls="pump-history">History</button>
+    </div>
+  </div>
+  <section id="pump-history" hidden><h4>Pump event history</h4><ol></ol></section>
+</dialog>
 <div id="chart-view" hidden>
   <div class="gpnd-nav"><button id="back-room" type="button" aria-controls="patient-room">Back to patient room</button></div>
   <div id="emr-workspace"></div>
-  <section class="nutrition-note" aria-labelledby="note-heading">
+  <section class="nutrition-note" id="note-composer" aria-labelledby="note-heading" hidden>
     <h3 id="note-heading">RD Nutrition Assessment / Progress Note</h3>
-    <p id="note-context" class="note-context"></p>
+    <dl id="note-context" class="note-context"></dl>
     <form id="nutrition-note">
       <fieldset><legend>Nutrition assessment</legend>
         <label>PO intake <select name="intake"><option value="">Choose…</option><option>NPO</option><option>Inadequate</option><option>Adequate</option><option>Unable to determine</option></select></label>
