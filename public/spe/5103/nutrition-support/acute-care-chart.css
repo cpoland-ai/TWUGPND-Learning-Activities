@@ -1,0 +1,130 @@
+/* Match the Acute Care chart shell while retaining the case renderer. */
+#emr-workspace {
+  --chart-maroon: #850928;
+  --chart-ink: #18212b;
+  --chart-line: #d7dde3;
+  --chart-canvas: #eef1f4;
+  color: var(--chart-ink);
+  background: white;
+  border: 1px solid var(--chart-line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#emr-workspace .emr-banner {
+  background: #263542;
+  color: white;
+  padding: 14px 22px 12px;
+  border-radius: 0;
+}
+#emr-workspace .emr-banner h3 {
+  color: white;
+  font-size: 24px;
+  margin: 4px 0 10px;
+}
+#emr-workspace .emr-banner .emr-kicker,
+#emr-workspace .patient-facts dt { color: #d7e0e6; }
+#emr-workspace .patient-facts dd { color: white; }
+#emr-workspace .emr-banner .patient-facts > div { background: transparent; border-color: #657480; }
+
+#emr-workspace .emr-role {
+  padding: 8px 22px;
+  background: var(--chart-maroon);
+  color: white;
+  border-radius: 0;
+}
+#emr-workspace .emr-role > * { color: inherit; }
+
+#emr-workspace .emr-layout {
+  display: block;
+  padding: 0;
+}
+#emr-workspace .emr-sidebar { display: none; }
+#emr-workspace .emr-main {
+  display: grid;
+  grid-template-columns: 214px minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+}
+#emr-workspace .chart-tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+  padding: 12px 0;
+  gap: 0;
+  background: #f3f5f7;
+  border-right: 1px solid var(--chart-line);
+  border-radius: 0;
+}
+#emr-workspace .chart-tabs button {
+  margin: 0;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 14px;
+  border: 0;
+  border-left: 4px solid transparent;
+  border-radius: 0;
+  text-align: left;
+  background: transparent;
+  color: #33404b;
+}
+#emr-workspace .chart-tabs button:hover { background: #e9edf0; }
+#emr-workspace .chart-tabs button[aria-selected="true"] {
+  background: white;
+  color: var(--chart-maroon);
+  border-left-color: var(--chart-maroon);
+}
+#emr-workspace .chart-panel {
+  min-width: 0;
+  min-height: 420px;
+  padding: 16px 20px;
+  border: 0;
+  border-radius: 0;
+}
+#emr-workspace .emr-card {
+  border: 1px solid var(--chart-line);
+  border-radius: 4px;
+  box-shadow: none;
+}
+#emr-workspace .emr-card h4 {
+  background: #f0f3f5;
+  border-bottom: 1px solid var(--chart-line);
+}
+#emr-workspace thead th {
+  background: #e9edf0;
+  color: #35434f;
+}
+#emr-workspace tbody tr:nth-child(even) { background: #fafbfc; }
+#emr-workspace .emr-notes {
+  background: white;
+  border: 1px solid var(--chart-line);
+  border-radius: 4px;
+}
+#emr-workspace .emr-note-list { background: #f7f8fa; }
+#emr-workspace .emr-note-list button[aria-pressed="true"] {
+  border-left: 4px solid var(--chart-maroon);
+  background: #fff7f8;
+  color: var(--chart-ink);
+}
+
+@media (max-width: 720px) {
+  #emr-workspace .emr-main { display: block; }
+  #emr-workspace .chart-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--chart-line);
+  }
+  #emr-workspace .chart-tabs button {
+    width: auto;
+    flex: 0 0 auto;
+    border-left: 0;
+    border-bottom: 3px solid transparent;
+  }
+  #emr-workspace .chart-tabs button[aria-selected="true"] {
+    border-bottom-color: var(--chart-maroon);
+  }
+  #emr-workspace .chart-panel { padding: 12px; }
+}

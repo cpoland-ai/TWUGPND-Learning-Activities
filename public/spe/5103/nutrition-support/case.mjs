@@ -85,7 +85,7 @@ for (const prompt of encounter.prompts) {
 }
 
 const chart = element('emr-workspace');
-const room = element('room-view');
+const room = element('room-workspace');
 const roomButton = element('room-button');
 const chartButton = element('chart-button');
 renderEMRView(chart, {
@@ -101,12 +101,13 @@ function showChart(open) {
   roomButton.setAttribute('aria-pressed', String(!open));
   chartButton.setAttribute('aria-pressed', String(open));
 }
-roomButton.addEventListener('click', () => showChart(false));
-chartButton.addEventListener('click', () => showChart(true));
-element('scene-chart').addEventListener('click', () => {
+function openChart() {
   showChart(true);
-  chart.querySelector('[role="tab"]').focus();
-});
+  chart.querySelector('[role="tab"][aria-selected="true"]').focus();
+}
+roomButton.addEventListener('click', () => showChart(false));
+chartButton.addEventListener('click', openChart);
+element('scene-chart').addEventListener('click', openChart);
 element('scene-patient').addEventListener('click', () => {
   const conversation = element('conversations').firstElementChild;
   conversation.open = true;
