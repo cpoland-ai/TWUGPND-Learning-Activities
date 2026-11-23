@@ -171,3 +171,13 @@
   #emr-workspace .emr-layout { grid-template-columns: minmax(0, 1fr); }
   #emr-workspace .emr-sidebar { display: none; }
 }
+.nutrition-note :is(input, select, textarea) { display: block; width: 100%; padding: .5rem; font: inherit; }
+.nutrition-note fieldset { margin: 1rem 0; border: 1px solid #d7dde3; border-radius: .35rem; }
+.note-context { padding: .75rem; background: #f3f6f8; }
+#note-printout { display: none; }
+@media print {
+  body > :not(#note-printout) { display: none !important; }
+  #note-printout { display: block; margin: 0; color: black; font: 11pt/1.45 system-ui, sans-serif; }
+  #note-printout h2 { font-size: 12pt; break-after: avoid; }
+  #note-printout p { white-space: pre-wrap; overflow-wrap: anywhere; }
+}

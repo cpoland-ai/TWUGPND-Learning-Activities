@@ -35,12 +35,45 @@
   <div class="gpnd-nav"><button id="back-room" type="button" aria-controls="patient-room">Back to patient room</button></div>
   <div id="emr-workspace"></div>
   <section class="nutrition-note" aria-labelledby="note-heading">
-    <h3 id="note-heading">Nutrition note · ADIME</h3>
+    <h3 id="note-heading">RD Nutrition Assessment / Progress Note</h3>
+    <p id="note-context" class="note-context"></p>
     <form id="nutrition-note">
-      <label>Assessment <textarea name="assessment" required rows="3"></textarea></label>
-      <label>Nutrition diagnosis <textarea name="diagnosis" required rows="3"></textarea></label>
-      <label>Intervention and rationale <textarea name="intervention" required rows="3"></textarea></label>
-      <label>Monitoring and evaluation <textarea name="monitoring" required rows="3"></textarea></label>
+      <fieldset><legend>Nutrition assessment</legend>
+        <label>PO intake <select name="intake"><option value="">Choose…</option><option>NPO</option><option>Inadequate</option><option>Adequate</option><option>Unable to determine</option></select></label>
+        <label>Appetite <select name="appetite"><option value="">Choose…</option><option>Good</option><option>Fair</option><option>Poor</option><option>Unable to determine</option></select></label>
+        <label>Weight history / interpretation <textarea name="weight" rows="2"></textarea></label>
+        <label>Additional assessment findings and estimated needs <textarea name="assessment" required rows="3"></textarea></label>
+        <details><summary>Nutrition-Focused Physical Exam</summary>
+        <p>Document findings supported by the encounter.</p>
+<label>Orbital region<select name="nfpe0"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Upper arm / triceps<select name="nfpe1"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Thoracic / ribs<select name="nfpe2"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Temple / temporalis<select name="nfpe3"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Clavicle region<select name="nfpe4"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Shoulder / deltoid<select name="nfpe5"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Interosseous<select name="nfpe6"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Scapular region<select name="nfpe7"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Anterior thigh / quadriceps<select name="nfpe8"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+<label>Posterior calf / gastrocnemius<select name="nfpe9"><option value="">Not documented</option><option>WNL / no loss</option><option>Mild</option><option>Moderate</option><option>Severe</option><option>Unable to assess</option></select></label>
+        <label>Fluid accumulation and location <input name="fluids"></label>
+        <label>Hand-grip strength <input name="grip"></label>
+        <label>Additional NFPE findings <input name="additional"></label>
+        </details>
+      </fieldset>
+      <fieldset><legend>Nutrition diagnosis</legend>
+        <label>Nutrition diagnosis <input name="diagnosis" required></label>
+        <label>Etiology / related factors <input name="etiology" required></label>
+        <label>Signs / symptoms <input name="signs" required></label>
+      </fieldset>
+      <fieldset><legend>Intervention</legend>
+        <label>Intervention category <select name="category"><option value="">Choose…</option><option>Enteral nutrition</option><option>Parenteral nutrition</option><option>Coordination of care</option><option>Other</option></select></label>
+        <label>Intervention / nutrition prescription details and rationale <textarea name="intervention" required rows="3"></textarea></label>
+        <label>Coordination / communication <textarea name="coordination" rows="2"></textarea></label>
+      </fieldset>
+      <fieldset><legend>Monitoring / evaluation</legend>
+        <label>Monitoring / evaluation targets <input name="targets"></label>
+        <label>Monitoring / evaluation details and follow-up <textarea name="monitoring" required rows="3"></textarea></label>
+      </fieldset>
       <div class="gpnd-nav"><button type="submit" id="save-note"></button><a id="other-encounter" hidden></a></div>
       <p id="note-status" role="status"></p>
     </form>
@@ -49,6 +82,7 @@
 </section>
 <footer>Simulation only · All case details are fictional</footer>
 </main>
+<article id="note-printout" aria-label="Printable nutrition note"></article>
 <script type="module" src="case.mjs"></script>
 </body>
 </html>

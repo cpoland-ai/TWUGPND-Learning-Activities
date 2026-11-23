@@ -1,9 +1,10 @@
 import { renderEMRView } from './shared/emr.mjs';
+import { admittingDiagnosis, inpatientNotes, inpatientTables, procedure } from './inpatient-record.mjs';
 
 const patient = {
   name: 'Elena Reyes', age: '58', sex: 'Female', mrn: 'SIM-5103-031',
   location: 'Surgical inpatient', admission: 'Hospital day 1', height: '165 cm',
-  diagnosis: 'Postoperative care following abdominal surgery'
+  diagnosis: admittingDiagnosis
 };
 
 const weightHistory = 'Date | Weight | Source\nAdmission | 66 kg | Standing scale\nOne month before admission | 69 kg | Outpatient chart';
@@ -15,9 +16,9 @@ const encounters = {
     title: 'Hospital day 3 · EN consult',
     consult: 'Develop the initial enteral nutrition recommendation.',
     chart: {
-      Snapshot: 'Current status: Postoperative patient with insufficient oral intake. Surgical team has cleared the feeding tube for use.',
+      Snapshot: 'Current status: POD 2 after open ileal resection for adhesive partial obstruction. Fatigued and tachycardic with incisional pain, 2 L/min nasal cannula and IV lactated Ringer’s. Surgery cleared postpyloric access.',
       Results: 'Sodium: 139 mmol/L\nPotassium: 3.8 mmol/L\nMagnesium: 1.8 mg/dL\nPhosphorus: 3.1 mg/dL\nCreatinine: 0.8 mg/dL\nGlucose: 112 mg/dL',
-      Vitals: 'Blood pressure: 118/72 mmHg\nHeart rate: 84 bpm\nTemperature: 37.0 °C',
+      Vitals: 'Blood pressure: 108/66 mmHg\nHeart rate: 102 bpm\nRespiratory rate: 22/min\nTemperature: 37.8 °C\nOxygen saturation: 96% on 2 L/min NC',
       Flowsheets: 'Hospital day 3\nOral intake: None documented since admission.\nFeeding: No formula started.',
       Orders: enOrders,
       MAR: 'IV maintenance fluids: See nursing intake record.',
@@ -53,14 +54,15 @@ const enNoteSaved = readNote('en');
 const stage = enNoteSaved && new URLSearchParams(location.search).get('encounter') === 'pn' ? 'pn' : 'en';
 const encounter = encounters[stage];
 element('encounter-heading').textContent = encounter.title;
+element('note-context').textContent = `${admittingDiagnosis} · ${procedure} · NPO · 165 cm · Admission 66 kg · Prior 69 kg · Admission MST 2 · ${encounter.title}`;
 element('encounter-instructions').textContent = stage === 'en'
-  ? 'Open the bedside chart, complete the PlayLab interview in Canvas, then return to chart your EN recommendation. Save your note to continue.'
+  ? 'Open the bedside chart, complete the PlayLab interview in Canvas, then return to chart your EN recommendation. Export your note as a PDF to continue.'
   : 'Review the updated chart and use PlayLab to follow up with the care team. Then chart your PN recommendation.';
 const form = element('nutrition-note');
-const fields = Array.from(form.querySelectorAll('textarea'));
+const fields = Array.from(form.querySelectorAll('[name]'));
 const savedNote = readNote(stage);
 const encounterLink = element('other-encounter');
-element('save-note').textContent = `Save ${stage.toUpperCase()} note`;
+element('save-note').textContent = `Export ${stage.toUpperCase()} note as PDF`;
 if (savedNote) {
   for (const field of fields) field.value = savedNote[field.name] ?? '';
 }
@@ -73,17 +75,34 @@ if (enNoteSaved) showEncounterLink();
 form.addEventListener('submit', event => {
   event.preventDefault();
   const note = Object.fromEntries(fields.map(field => [field.name, field.value.trim()]));
-  if (Object.values(note).some(value => !value)) {
-    element('note-status').textContent = 'Complete all four sections before saving.';
+  if (fields.some(field => field.required && !note[field.name])) {
+    element('note-status').textContent = 'Complete the required sections before exporting.';
     return;
   }
+  const report = element('note-printout');
+  const heading = document.createElement('h1');
+  heading.textContent = 'RD Nutrition Assessment / Progress Note';
+  const context = document.createElement('p');
+  context.textContent = `Simulation · ${patient.name} · ${encounter.title} · ${new Date().toLocaleString()}`;
+  const summary = document.createElement('p');
+  summary.textContent = `${admittingDiagnosis}. ${procedure}. Admission weight 66 kg; height 165 cm; MST 2.`;
+  report.replaceChildren(heading, context, summary);
+  for (const field of fields) {
+    if (!note[field.name]) continue;
+    const label = document.createElement('h2');
+    label.textContent = field.labels[0].textContent.trim();
+    const value = document.createElement('p');
+    value.textContent = note[field.name];
+    report.append(label, value);
+  }
+  window.print();
   try {
     localStorage.setItem(`nfs5103-elena-${stage}`, JSON.stringify(note));
   } catch {
-    element('note-status').textContent = 'This browser could not save the note. Keep this page open and check whether local browser storage is available.';
+    element('note-status').textContent = 'Use Save as PDF in the print dialog. This browser could not retain your progress.';
     return;
   }
-  element('note-status').textContent = 'Note saved in this browser.';
+  element('note-status').textContent = 'Choose Save as PDF in the print dialog. Your note remains in this browser.';
   showEncounterLink();
 });
 
@@ -91,7 +110,8 @@ const chart = element('emr-workspace');
 renderEMRView(chart, {
   caseData: {
     patient: { ...patient, encounter: encounter.title, consult: encounter.consult },
-    chart: encounter.chart
+    chart: { ...encounter.chart, Notes: inpatientNotes(stage), Screening: "" },
+    tables: inpatientTables(stage)
   },
   assessmentLink: false
 });
