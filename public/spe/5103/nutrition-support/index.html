@@ -17,15 +17,13 @@
   <nav class="gpnd-nav" aria-label="Learning activities navigation">
     <a href="../index.html">Back to NFS 5103</a>
     <a href="../../../index.html">All courses</a>
-    <a href="?encounter=en" id="en-link">EN encounter</a>
-    <a href="?encounter=pn" id="pn-preview">PN encounter preview</a>
   </nav>
 </div>
 <main id="main">
 <header>
 <p class="eyebrow">NFS 5103 · Competency Synthesis</p>
 <h1>EN/PN Simulation</h1>
-<p>Select the bedside computer to review Elena Reyes’s chart, then use the PlayLab activity in Canvas to interview the patient, family, and care team.</p>
+<p id="encounter-instructions"></p>
 </header>
 <section id="encounter" aria-labelledby="encounter-heading">
 <h2 id="encounter-heading"></h2>
@@ -36,6 +34,17 @@
 <div id="chart-view" hidden>
   <div class="gpnd-nav"><button id="back-room" type="button" aria-controls="patient-room">Back to patient room</button></div>
   <div id="emr-workspace"></div>
+  <section class="nutrition-note" aria-labelledby="note-heading">
+    <h3 id="note-heading">Nutrition note · ADIME</h3>
+    <form id="nutrition-note">
+      <label>Assessment <textarea name="assessment" required rows="3"></textarea></label>
+      <label>Nutrition diagnosis <textarea name="diagnosis" required rows="3"></textarea></label>
+      <label>Intervention and rationale <textarea name="intervention" required rows="3"></textarea></label>
+      <label>Monitoring and evaluation <textarea name="monitoring" required rows="3"></textarea></label>
+      <div class="gpnd-nav"><button type="submit" id="save-note"></button><a id="other-encounter" hidden></a></div>
+      <p id="note-status" role="status"></p>
+    </form>
+  </section>
 </div>
 </section>
 <footer>Simulation only · All case details are fictional</footer>

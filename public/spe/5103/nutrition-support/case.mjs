@@ -41,11 +41,51 @@ const encounters = {
   }
 };
 
-const stage = new URLSearchParams(location.search).get('encounter') === 'pn' ? 'pn' : 'en';
-const encounter = encounters[stage];
 const element = id => document.getElementById(id);
+function readNote(stage) {
+  try {
+    return JSON.parse(localStorage.getItem(`nfs5103-elena-${stage}`));
+  } catch {
+    return null;
+  }
+}
+const enNoteSaved = readNote('en');
+const stage = enNoteSaved && new URLSearchParams(location.search).get('encounter') === 'pn' ? 'pn' : 'en';
+const encounter = encounters[stage];
 element('encounter-heading').textContent = encounter.title;
-element(stage === 'pn' ? 'pn-preview' : 'en-link').setAttribute('aria-current', 'page');
+element('encounter-instructions').textContent = stage === 'en'
+  ? 'Open the bedside chart, complete the PlayLab interview in Canvas, then return to chart your EN recommendation. Save your note to continue.'
+  : 'Review the updated chart and use PlayLab to follow up with the care team. Then chart your PN recommendation.';
+const form = element('nutrition-note');
+const fields = Array.from(form.querySelectorAll('textarea'));
+const savedNote = readNote(stage);
+const encounterLink = element('other-encounter');
+element('save-note').textContent = `Save ${stage.toUpperCase()} note`;
+if (savedNote) {
+  for (const field of fields) field.value = savedNote[field.name] ?? '';
+}
+function showEncounterLink() {
+  encounterLink.href = stage === 'en' ? '?encounter=pn' : '?encounter=en';
+  encounterLink.textContent = stage === 'en' ? 'Open the next encounter' : 'Review EN encounter';
+  encounterLink.hidden = false;
+}
+if (enNoteSaved) showEncounterLink();
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const note = Object.fromEntries(fields.map(field => [field.name, field.value.trim()]));
+  if (Object.values(note).some(value => !value)) {
+    element('note-status').textContent = 'Complete all four sections before saving.';
+    return;
+  }
+  try {
+    localStorage.setItem(`nfs5103-elena-${stage}`, JSON.stringify(note));
+  } catch {
+    element('note-status').textContent = 'This browser could not save the note. Keep this page open and check whether local browser storage is available.';
+    return;
+  }
+  element('note-status').textContent = 'Note saved in this browser.';
+  showEncounterLink();
+});
 
 const chart = element('emr-workspace');
 renderEMRView(chart, {

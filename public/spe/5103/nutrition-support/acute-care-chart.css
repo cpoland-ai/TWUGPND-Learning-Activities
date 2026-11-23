@@ -128,3 +128,46 @@
   }
   #emr-workspace .chart-panel { padding: 12px; }
 }
+
+/* Acute Care layout: patient context rail, horizontal chart tabs, data panel. */
+#emr-workspace .emr-layout { display: grid; grid-template-columns: 13rem minmax(0, 1fr); }
+#emr-workspace .emr-sidebar {
+  display: block;
+  background: #f3f6f8;
+  border-right: 1px solid var(--chart-line);
+  border-radius: 0;
+}
+#emr-workspace .emr-main { display: block; min-width: 0; }
+#emr-workspace .chart-tabs {
+  flex-direction: row;
+  overflow-x: auto;
+  padding: 0;
+  border: 0;
+  background: #1d4d71;
+}
+#emr-workspace .chart-tabs button {
+  width: auto;
+  flex: 0 0 auto;
+  border: 0;
+  color: white;
+}
+#emr-workspace .chart-tabs button:hover { background: #163b57; }
+#emr-workspace .chart-tabs button[aria-selected="true"] {
+  border: 0;
+  color: #1d4d71;
+}
+#emr-workspace .chart-tabs button:focus-visible { outline: 2px solid currentColor; outline-offset: -4px; }
+#chart-view > .gpnd-nav { margin-bottom: .6rem; }
+.nutrition-note {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #d7dde3;
+  border-radius: 4px;
+  background: white;
+}
+.nutrition-note label { display: block; margin: .75rem 0; font-weight: 600; }
+.nutrition-note textarea { display: block; width: 100%; font: inherit; resize: vertical; }
+@media (max-width: 720px) {
+  #emr-workspace .emr-layout { grid-template-columns: minmax(0, 1fr); }
+  #emr-workspace .emr-sidebar { display: none; }
+}
