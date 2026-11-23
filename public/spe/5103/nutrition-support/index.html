@@ -28,8 +28,13 @@
 <section id="encounter" aria-labelledby="encounter-heading">
 <h2 id="encounter-heading"></h2>
 <div class="encounter-room" id="patient-room">
-  <img src="room.webp" width="836" height="471" alt="Elena Reyes in a hospital bed beside a computer">
+  <img id="room-photo" src="room.webp" width="836" height="471" alt="Elena Reyes in a hospital bed beside a computer and enteral feeding pump">
   <button id="open-chart" type="button" aria-controls="emr-workspace">Open patient chart</button>
+  <details id="pump-reading" hidden>
+    <summary>Inspect feeding pump</summary>
+    <dl><div><dt>Bag label</dt><dd id="pump-formula"></dd></div>
+      <div><dt>Pump display · Running</dt><dd id="pump-rate"></dd></div></dl>
+  </details>
 </div>
 <div id="chart-view" hidden>
   <div class="gpnd-nav"><button id="back-room" type="button" aria-controls="patient-room">Back to patient room</button></div>

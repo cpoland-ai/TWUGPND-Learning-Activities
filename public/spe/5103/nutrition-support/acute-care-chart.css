@@ -181,3 +181,8 @@
   #note-printout h2 { font-size: 12pt; break-after: avoid; }
   #note-printout p { white-space: pre-wrap; overflow-wrap: anywhere; }
 }
+#pump-reading { position: absolute; top: 34%; right: 2%; max-width: 48%; background: white; border: 1px solid #d7dde3; border-radius: .5rem; color: #18212b; }
+#pump-reading summary { min-height: 44px; padding: .55rem .7rem; cursor: pointer; font-weight: 700; }
+#pump-reading dl { margin: 0; padding: 0 .7rem .65rem; }
+#pump-reading dd { margin: 0 0 .4rem; font-weight: 700; }
+@media (max-width: 520px) { #pump-reading { position: static; max-width: none; margin-top: .5rem; } }
