@@ -45,7 +45,7 @@ const stage = new URLSearchParams(location.search).get('encounter') === 'pn' ? '
 const encounter = encounters[stage];
 const element = id => document.getElementById(id);
 element('encounter-heading').textContent = encounter.title;
-element('pn-preview').hidden = stage === 'pn';
+element(stage === 'pn' ? 'pn-preview' : 'en-link').setAttribute('aria-current', 'page');
 
 const chart = element('emr-workspace');
 renderEMRView(chart, {
@@ -54,4 +54,18 @@ renderEMRView(chart, {
     chart: encounter.chart
   },
   assessmentLink: false
+});
+
+const room = element('patient-room');
+const chartView = element('chart-view');
+const openChart = element('open-chart');
+element('back-room').addEventListener('click', () => {
+  chartView.hidden = true;
+  room.hidden = false;
+  openChart.focus();
+});
+openChart.addEventListener('click', () => {
+  room.hidden = true;
+  chartView.hidden = false;
+  chart.querySelector('[role="tab"][aria-selected="true"]').focus();
 });
