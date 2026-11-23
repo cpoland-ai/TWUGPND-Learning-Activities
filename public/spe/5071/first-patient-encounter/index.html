@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>First Patient Encounter &amp; EMR Prep | NFS 5071</title>
+<style>
+* {box-sizing:border-box}
+body {margin:0;background:#faf6ee;color:#251f25;font:1rem/1.55 system-ui,sans-serif}
+main {max-width:80rem;margin:auto;padding:clamp(1rem,4vw,3rem)}
+a {color:#781332}
+header {margin:1rem 0;padding:clamp(1rem,4vw,2rem);border-radius:1rem;background:#781332;color:white}
+header p,h1 {margin:0}
+h1 {font:500 clamp(1.8rem,5vw,3rem)/1.1 Georgia,serif;margin:.35rem 0 .65rem}
+.layout {display:grid;grid-template-columns:1fr 1.1fr;gap:1rem;align-items:start}
+.card {background:white;border:1px solid #d9cccf;border-radius:.9rem;padding:1.2rem}
+h2,h3 {color:#781332;margin:.25rem 0 .65rem}
+details {border-top:1px solid #ded4d6;padding:.65rem 0}
+summary,label {cursor:pointer}
+details p {margin:.45rem 0 0}
+fieldset {border:0;padding:0;margin:0 0 1rem}
+legend {font-weight:700;margin-bottom:.5rem}
+label {display:block;background:#f6edef;padding:.6rem .75rem;border-radius:.5rem;margin:.4rem 0}
+button {font:inherit;cursor:pointer;background:#205854;color:white;border:0;border-radius:.5rem;padding:.55rem .9rem;margin-right:.4rem}
+button.secondary {background:#eee5e7;color:#53142b}
+:focus-visible {outline:3px solid #205854;outline-offset:3px}
+.feedback:not(:empty) {background:#e9f2ef;border-radius:.5rem;padding:.7rem}
+progress {width:100%;accent-color:#781332}
+[hidden] {display:none}
+@media(max-width:48rem){.layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+<a href="../index.html">← NFS 5071 Orientation</a>
+<header><p>NFS 5071 · Orientation</p><h1>First Patient Encounter &amp; EMR Prep</h1>
+<p>Review a fictional chart, plan your bedside questions, and practice a one-minute huddle.</p></header>
+<div class="layout">
+<section class="card" aria-labelledby="chart-title">
+<h2 id="chart-title">Practice chart</h2>
+<p><strong>Jordan Ellis</strong> · Hospital day 2</p>
+<details open><summary>Admission &amp; consult</summary><p>Admitted with pneumonia. Nutrition consult requested for poor oral intake.</p></details>
+<details><summary>Diet order &amp; intake</summary><p>Regular diet. Meal record shows about one-quarter of breakfast eaten today. Lunch intake is unrecorded.</p></details>
+<details><summary>Weight history</summary><p>Admission weight is 68 kg. A clinic note from two months ago lists 73 kg. Measurement conditions and whether the change was intentional are unknown.</p></details>
+<details><summary>Labs &amp; medications</summary><p>Morning chart lists creatinine 0.9 mg/dL. The medication record shows an antibiotic was administered this morning.</p></details>
+<details><summary>Nursing note</summary><p>Today at 10 a.m., Jordan reported nausea and said food had tasted different since admission.</p></details>
+</section>
+<section class="card" aria-labelledby="step-title">
+<p id="step-count" aria-live="polite"></p>
+<progress id="progress" max="3" value="0" aria-label="Decisions reviewed"></progress>
+<h2 id="step-title" tabindex="-1"></h2>
+<form id="decision"><fieldset><legend id="prompt"></legend><div id="choices"></div></fieldset>
+<button type="submit">Check my choice</button></form>
+<p id="feedback" class="feedback" role="status"></p>
+<button id="next" hidden>Continue</button>
+<button id="restart" class="secondary" hidden>Start over</button>
+<div id="debrief" hidden>
+<p>With your partner, practice introducing yourself, asking permission to talk, and comparing the chart with what the patient reports.</p>
+<h3>Give your one-minute huddle</h3>
+<ul><li>What do you know from the chart?</li><li>What do you still need to ask Jordan?</li><li>What will you confirm with your preceptor?</li></ul>
+<p>Record key findings in your practice Nutrition Assessment Record (NAR), including each finding’s source and timing. Write unknowns as follow-up questions.</p>
+<p><strong>Bring your practice NAR to the debrief.</strong> This is guided practice with no graded upload. Follow the Canvas activity for the GA demonstration and class instructions.</p>
+</div>
+<noscript><p>Use the chart to pick two interview priorities and one detail to verify. Give a partner a one-minute huddle on what you know, what you need to ask, and what you’ll confirm with your preceptor. Bring your practice NAR to the debrief.</p></noscript>
+</section></div></main>
+<script>
+const steps = [
+  {
+    title: "Review the chart",
+    prompt: "Which pair of findings best guides your first interview?",
+    options: ["The low breakfast intake and the difference between recorded weights", "The antibiotic dose and the missing lunch entry", "The regular diet order and the morning creatinine"],
+    feedback: [
+      "Yes. Ask how today’s intake compares with usual intake and whether the weight change reflects the patient’s experience.",
+      "The missing lunch entry is worth clarifying. Start with the documented low breakfast intake and the weight trend to guide the interview.",
+      "Those facts provide context. The documented low intake and weight difference give you more direct questions about the consult."
+    ]
+  },
+  {
+    title: "Ask at the bedside",
+    prompt: "Jordan tells you, “I’ve been eating fine.” How do you follow up?",
+    options: ["Ask whether the nurse’s meal record is wrong.", "Ask what Jordan ate today and how that compares with a usual day at home.", "Record adequate intake and move to the next topic."],
+    feedback: [
+      "Ask Jordan for specifics first. Both accounts may be accurate if they describe different meals or time periods.",
+      "Yes. A specific, neutral question clarifies the timing and lets you ask about nausea or other barriers.",
+      "Clarify what “fine” means before documenting your interpretation. Keep the patient report and chart entry attributed to their sources."
+    ]
+  },
+  {
+    title: "Huddle with your preceptor",
+    prompt: "Which update makes the best use of the chart and interview?",
+    options: ["Jordan has confirmed unintentional weight loss and inadequate intake.", "Jordan’s intake is adequate based on the interview.", "The chart shows low breakfast intake and two different weights. I’ll clarify usual intake and confirm the weight history and measurement conditions with you."],
+    feedback: [
+      "The chart shows a weight difference. Intent and measurement conditions are still unknown.",
+      "The patient report is one source. Include the chart finding and identify what needs clarification.",
+      "Yes. You’ve named the available evidence, identified what remains uncertain, and told your preceptor what you want to confirm."
+    ]
+  }
+];
+const form = document.querySelector("#decision");
+const title = document.querySelector("#step-title");
+const prompt = document.querySelector("#prompt");
+const choices = document.querySelector("#choices");
+const feedback = document.querySelector("#feedback");
+const next = document.querySelector("#next");
+const restart = document.querySelector("#restart");
+const progress = document.querySelector("#progress");
+const count = document.querySelector("#step-count");
+const debrief = document.querySelector("#debrief");
+let index = 0;
+function showStep(moveFocus) {
+  const step = steps[index];
+  count.textContent = step ? `Decision ${index + 1} of ${steps.length}` : "Practice complete";
+  title.textContent = step ? step.title : "Debrief";
+  feedback.textContent = "";
+  next.hidden = true;
+  restart.hidden = Boolean(step);
+  debrief.hidden = Boolean(step);
+  form.hidden = !step;
+  if (step) {
+    prompt.textContent = step.prompt;
+    choices.replaceChildren(...step.options.map((option, i) => {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "answer";
+      input.value = String(i);
+      input.required = true;
+      label.append(input, " " + option);
+      return label;
+    }));
+  }
+  if (moveFocus) title.focus();
+}
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  const selected = Number(new FormData(form).get("answer"));
+  feedback.textContent = steps[index].feedback[selected];
+  progress.value = index + 1;
+  next.hidden = false;
+  next.textContent = index === steps.length - 1 ? "Open debrief" : "Continue";
+});
+next.addEventListener("click", () => { index++; showStep(true); });
+restart.addEventListener("click", () => { index = 0; progress.value = 0; showStep(true); });
+showStep(false);
+</script>
+</body></html>
