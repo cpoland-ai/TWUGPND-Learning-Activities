@@ -4,30 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TWU Houston GPND Learning Activities</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; background: #faf6ee; color: #272328; font: 1rem/1.6 system-ui, sans-serif; }
-    main { max-width: 92rem; margin: auto; padding: clamp(1rem, 5vw, 3rem); }
-    header { background: #781332; color: white; padding: clamp(1.25rem, 4vw, 2.5rem); border-radius: 1rem; }
-    header p, h1 { margin: 0; }
-    h1 { font: 500 clamp(2rem, 6vw, 3.25rem)/1.1 Georgia, serif; margin-top: .4rem; }
-    h2 { margin: .25rem 0; color: #781332; font-size: 1.35rem; }
-    .course { color: #215b58; font-weight: 700; }
-    .tabs { display:flex; flex-wrap:wrap; gap:.45rem; margin:1.35rem 0 1.1rem; border-bottom:1px solid #ded1d4; }
-    .tabs button { font:inherit; font-weight:700; color:#781332; background:transparent; padding:.65rem 1rem; border:0; border-bottom:3px solid transparent; cursor:pointer; }
-    .tabs button[aria-selected="true"] { border-color:#781332; background:#f2e3e8; border-radius:.5rem .5rem 0 0; }
-    :focus-visible { outline:3px solid #215b58; outline-offset:3px; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap:1rem; }
-    .tile { background:white; border:1px solid #ded1d4; border-top:4px solid #215b58; border-radius:.8rem; padding:1rem 1.15rem; }
-    .tile p { margin:.25rem 0; }
-    .tile .status { margin-top:.65rem; color:#59505a; font-size:.875rem; }
-    [hidden] { display:none; }
-  </style>
+  <link rel="stylesheet" href="hub.css">
+<link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
+<div class="gpnd-header">
+  <span>TWU Houston · Graduate Program in Nutrition and Dietetics</span>
+  <nav class="gpnd-nav" aria-label="Learning activities navigation">
+    <a href="index.html" aria-current="page">All courses</a>
+  </nav>
+</div>
   <main>
-    <header>
-      <p>TWU Houston · Graduate Program in Nutrition and Dietetics</p>
+    <header class="hero">
       <h1>GPND Learning Activities</h1>
     </header>
     <div class="tabs" role="tablist" aria-label="Browse learning activities">
@@ -35,20 +23,22 @@
       <button type="button" role="tab" id="rotations-tab" aria-controls="rotations" aria-selected="false" tabindex="-1">Rotations</button>
     </div>
     <section id="courses" role="tabpanel" aria-labelledby="courses-tab" tabindex="0">
-      <div class="grid"><article class="tile"><p class="course">NFS 5071</p><h2>Orientation</h2><p>First Patient Encounter &amp; EMR Prep</p><p class="status">Activity coming soon</p></article>
-<article class="tile"><p class="course">NFS 5072</p><h2>Foundations of Practice</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><p class="course">NFS 5083</p><h2>Supervised Practice II</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><p class="course">NFS 5093</p><h2>Supervised Practice III</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><p class="course">NFS 5103</p><h2>Competency Synthesis</h2><p class="status">Activities coming soon</p></article></div>
+      <div class="grid">
+        <a class="card" href="spe/5071/"><p class=course>NFS 5071</p><h2>Orientation</h2><span class="action">View activities <span aria-hidden="true">→</span></span></a>
+        <a class="card" href="spe/5072/"><p class=course>NFS 5072</p><h2>Foundations of Practice</h2><span class="action">View activities <span aria-hidden="true">→</span></span></a>
+        <a class="card" href="spe/5083/"><p class=course>NFS 5083</p><h2>Supervised Practice II</h2><span class="action">View activities <span aria-hidden="true">→</span></span></a>
+        <a class="card" href="spe/5093/"><p class=course>NFS 5093</p><h2>Supervised Practice III</h2><span class="action">View activities <span aria-hidden="true">→</span></span></a>
+        <a class="card" href="spe/5103/"><p class=course>NFS 5103</p><h2>Competency Synthesis</h2><span class="action">View activities <span aria-hidden="true">→</span></span></a>
+      </div>
     </section>
     <section id="rotations" role="tabpanel" aria-labelledby="rotations-tab" tabindex="0" hidden>
-      <div class="grid"><article class="tile"><h2>Clinical Inpatient</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><h2>Clinical Outpatient</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><h2>Renal Dialysis</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><h2>Community Nutrition</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><h2>School Foodservice</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><h2>Hospital Foodservice</h2><p class="status">Activities coming soon</p></article>
-<article class="tile"><h2>Elective</h2><p class="status">Activities coming soon</p></article></div>
+      <div class="grid"><article class="card"><h2>Clinical Inpatient</h2><p class="status">Activities coming soon</p></article>
+<article class="card"><h2>Clinical Outpatient</h2><p class="status">Activities coming soon</p></article>
+<article class="card"><h2>Renal Dialysis</h2><p class="status">Activities coming soon</p></article>
+<article class="card"><h2>Community Nutrition</h2><p class="status">Activities coming soon</p></article>
+<article class="card"><h2>School Foodservice</h2><p class="status">Activities coming soon</p></article>
+<article class="card"><h2>Hospital Foodservice</h2><p class="status">Activities coming soon</p></article>
+<article class="card"><h2>Elective</h2><p class="status">Activities coming soon</p></article></div>
     </section>
   </main>
 <script>

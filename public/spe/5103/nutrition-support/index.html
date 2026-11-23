@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>NFS 5103 · EN/PN Simulation</title>
+<link rel="stylesheet" href="shared/module10.css">
+<link rel="stylesheet" href="shared/encounter-layout.css">
+<link rel="stylesheet" href="acute-care-chart.css">
+<link rel="stylesheet" href="../../../site-nav.css">
+</head>
+<body class="clinical-encounter">
+<a class="gpnd-skip" href="#main">Skip to activity</a>
+<div class="gpnd-header">
+  <span>TWU Houston · Graduate Program in Nutrition and Dietetics</span>
+  <nav class="gpnd-nav" aria-label="Learning activities navigation">
+    <a href="../index.html">Back to NFS 5103</a>
+    <a href="../../../index.html">All courses</a>
+    <a href="?encounter=en" id="en-link">EN encounter</a>
+    <a href="?encounter=pn" id="pn-preview">PN encounter preview</a>
+  </nav>
+</div>
+<main id="main">
+<header>
+<p class="eyebrow">NFS 5103 · Competency Synthesis</p>
+<h1>EN/PN Simulation</h1>
+<p>Select the bedside computer to review Elena Reyes’s chart, then use the PlayLab activity in Canvas to interview the patient, family, and care team.</p>
+</header>
+<section id="encounter" aria-labelledby="encounter-heading">
+<h2 id="encounter-heading"></h2>
+<div class="encounter-room" id="patient-room">
+  <img src="room.webp" width="836" height="471" alt="Elena Reyes in a hospital bed beside a computer">
+  <button id="open-chart" type="button" aria-controls="emr-workspace">Open patient chart</button>
+</div>
+<div id="chart-view" hidden>
+  <div class="gpnd-nav"><button id="back-room" type="button" aria-controls="patient-room">Back to patient room</button></div>
+  <div id="emr-workspace"></div>
+</div>
+</section>
+<footer>Simulation only · All case details are fictional</footer>
+</main>
+<script type="module" src="case.mjs"></script>
+</body>
+</html>
