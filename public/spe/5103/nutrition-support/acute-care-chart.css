@@ -255,3 +255,42 @@
 .pump-keys { display: grid; align-content: start; gap: .3rem; }
 .pump-keys button { min-height: 40px; border: 1px solid #ada2c1; border-radius: .4rem; padding: .25rem .45rem; color: #231a32; background: #f4effa; font: 700 .73rem system-ui, sans-serif; text-align: left; }
 .pump-screen { align-content: start; background: #dce7cb; color: #22331e; min-height: 8rem; }
+
+/* Photographic equipment close-ups; labels and controls remain selectable text. */
+.formula-assembly { position: relative; width: min(100%, 11.5rem); }
+.formula-assembly img { display: block; width: 100%; border-radius: .45rem; }
+.formula-label {
+  position: absolute;
+  inset: 44% 14% auto;
+  transform: none;
+  padding: .35rem;
+  gap: .2rem;
+  color: #222;
+}
+.formula-label time { font-family: monospace; font-weight: 800; }
+.pump-device {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  display: grid;
+  align-content: center;
+  padding: 0 12%;
+  background: #3a3541 url('pump-closeup.webp') center / cover no-repeat;
+  border: 0;
+  border-radius: .45rem;
+  box-shadow: none;
+}
+.pump-model { display: none; }
+.pump-face { padding: .3rem; background: #292831; }
+.pump-screen { min-height: 7rem; background: #dce3ce; }
+@media(max-width: 600px) {
+  .pump-device { padding-inline: 8%; }
+}
+.formula-assembly { width: min(100%, 13rem); }
+.formula-label { inset: 34% 34% auto 35%; padding: .15rem; border: 0; background: transparent; gap: .1rem; overflow-wrap: anywhere; }
+.formula-label strong, .formula-label span, .formula-label time { font-size: .64rem; line-height: 1.15; }
+.pump-device { padding: 0; }
+.pump-device .pump-face { position: absolute; inset: 21% 17% auto; }
+.pump-device .pump-screen { min-height: 0; font-size: .72rem; padding: .3rem; }
+.pump-device .pump-screen strong { font-size: 1.05rem; }
+.pump-device .pump-keys button { min-height: 28px; font-size: .67rem; }
+#formula-check[hidden] { display: none; }

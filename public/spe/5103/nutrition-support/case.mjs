@@ -53,7 +53,12 @@ for (const [label, value] of [
   noteContext.append(tile);
 }
 const form = element('nutrition-note');
-const fields = Array.from(form.querySelectorAll('[name]'));
+const formulaCheck = element('formula-check');
+if (stage === 'en') {
+  formulaCheck.hidden = false;
+  formulaCheck.querySelector('textarea').disabled = false;
+}
+const fields = Array.from(form.querySelectorAll('[name]:enabled'));
 const savedNote = readNote(stage);
 const encounterLink = element('other-encounter');
 element('save-note').textContent = `Export ${stage.toUpperCase()} note as PDF`;

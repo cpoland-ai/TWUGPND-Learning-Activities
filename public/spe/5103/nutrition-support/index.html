@@ -36,12 +36,10 @@
   <h3 id="pump-title">Bedside feeding pump</h3>
   <div class="pump-inspection">
     <div class="formula-assembly">
-      <div class="formula-bag">
-        <span class="bag-eyelet" aria-hidden="true"></span>
-        <div class="formula-label"><span>Enteral nutrition</span><strong id="pump-formula"></strong><span>Ready-to-hang formula</span></div>
-        <span class="bag-scale" aria-hidden="true"></span>
+      <img src="formula-closeup.webp" alt="Clear hanging pouch filled with enteral formula">
+      <div class="formula-label"><span>Ready-to-hang enteral formula</span><strong id="pump-formula"></strong>
+        <span>EXP <time datetime="2030-11-30">11/30/2030</time></span>
       </div>
-      <span class="bag-connector" aria-hidden="true"></span>
     </div>
     <div class="pump-device">
       <div class="pump-model"><span>Enteral feed pump</span><span class="pump-indicator" aria-hidden="true"></span></div>
@@ -53,7 +51,7 @@
           <span id="pump-detail"></span>
         </div>
       </div>
-      <span class="pump-cassette" aria-hidden="true"></span>
+      
     </div>
   </div>
   <details id="pump-history" hidden>
@@ -72,6 +70,9 @@
         <label>PO intake <select name="intake"><option value="">Choose…</option><option>NPO</option><option>Inadequate</option><option>Adequate</option><option>Unable to determine</option></select></label>
         <label>Appetite <select name="appetite"><option value="">Choose…</option><option>Good</option><option>Fair</option><option>Poor</option><option>Unable to determine</option></select></label>
         <label>Weight history / interpretation <textarea name="weight" rows="2"></textarea></label>
+        <label id="formula-check" hidden>Formula expiration check
+          <textarea name="formulaExpiry" rows="2" required disabled placeholder="Record the expiration date from the bag and whether it is expired on the encounter date."></textarea>
+        </label>
         <label>Additional assessment findings and estimated needs <textarea name="assessment" required rows="3"></textarea></label>
         <details><summary>Nutrition-Focused Physical Exam</summary>
         <p>Document findings supported by the encounter.</p>
