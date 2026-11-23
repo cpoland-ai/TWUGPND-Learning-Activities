@@ -35,9 +35,16 @@
   <form method="dialog"><button type="submit" aria-label="Close pump inspection">Close</button></form>
   <h3 id="pump-title">Bedside feeding pump</h3>
   <div class="pump-inspection">
-    <div class="formula-bag"><span>Enteral formula</span><strong id="pump-formula"></strong></div>
+    <div class="formula-assembly">
+      <div class="formula-bag">
+        <span class="bag-eyelet" aria-hidden="true"></span>
+        <div class="formula-label"><span>Enteral nutrition</span><strong id="pump-formula"></strong><span>Ready-to-hang formula</span></div>
+        <span class="bag-scale" aria-hidden="true"></span>
+      </div>
+      <span class="bag-connector" aria-hidden="true"></span>
+    </div>
     <div class="pump-device">
-      <span class="pump-model">Joey · Training pump</span>
+      <div class="pump-model"><span>Enteral feed pump</span><span class="pump-indicator" aria-hidden="true"></span></div>
       <div class="pump-face">
         <div class="pump-keys" id="pump-keys" aria-label="Pump soft keys"></div>
         <div class="pump-screen" id="pump-screen" aria-live="polite">
@@ -46,6 +53,7 @@
           <span id="pump-detail"></span>
         </div>
       </div>
+      <span class="pump-cassette" aria-hidden="true"></span>
     </div>
   </div>
   <details id="pump-history" hidden>
