@@ -135,14 +135,43 @@ const pump = element('pump-reading');
 if (stage === 'en') {
   pump.hidden = false;
   element('pump-formula').textContent = bedsideFeed.formula;
-  element('pump-rate').textContent = bedsideFeed.rate;
   const dialog = element('pump-dialog');
-  pump.onclick = () => dialog.showModal();
   const history = element('pump-history');
-  const historyButton = element('pump-history-button');
-  historyButton.onclick = () => {
-    history.hidden = !history.hidden;
-    historyButton.setAttribute('aria-expanded', String(!history.hidden));
+  const keys = element('pump-keys');
+  let mode = 'running';
+  let hours = 1;
+  function showPump() {
+    const activeKey = document.activeElement?.textContent;
+    const refocus = keys.contains(document.activeElement);
+    const titles = { running: 'RUNNING', holding: 'HOLDING', history: 'HISTORY' };
+    element('pump-mode').textContent = titles[mode];
+    element('pump-value').textContent = mode === 'history' ? `Past ${hours} h` : bedsideFeed.rate;
+    // At the simulated 11:00 clock, the preceding one, two, and three hours include 60, 90, and 120 minutes of feeding.
+    const feedMl = [20, 30, 40][Math.min(hours, 3) - 1];
+    element('pump-detail').textContent = mode === 'history'
+      ? `FEED ${feedMl} mL · FLUSH 0 mL` : '40 mL fed · continuous';
+    history.hidden = mode !== 'history';
+    const options = {
+      running: [['HOLD', () => { mode = 'holding'; }]],
+      holding: [['RUN', () => { mode = 'running'; }], ['HISTORY', () => { mode = 'history'; }]],
+      history: [['+ HOUR', () => { hours = Math.min(72, hours + 1); }], ['− HOUR', () => { hours = Math.max(1, hours - 1); }], ['DONE', () => { mode = 'holding'; }]]
+    };
+    keys.replaceChildren();
+    for (const [label, action] of options[mode]) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = `▸ ${label}`;
+      button.onclick = () => { action(); showPump(); };
+      keys.append(button);
+    }
+    if (refocus) (Array.from(keys.children).find(key => key.textContent === activeKey) ?? keys.firstElementChild).focus();
+  }
+  pump.onclick = () => {
+    mode = 'running';
+    hours = 1;
+    history.open = false;
+    showPump();
+    dialog.showModal();
   };
   for (const [time, event] of pumpHistory) {
     const entry = document.createElement('li');

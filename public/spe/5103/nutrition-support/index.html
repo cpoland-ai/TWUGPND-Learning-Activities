@@ -37,11 +37,21 @@
   <div class="pump-inspection">
     <div class="formula-bag"><span>Enteral formula</span><strong id="pump-formula"></strong></div>
     <div class="pump-device">
-      <div class="pump-screen"><span>Running</span><strong id="pump-rate"></strong></div>
-      <button type="button" id="pump-history-button" aria-expanded="false" aria-controls="pump-history">History</button>
+      <span class="pump-model">Joey · Training pump</span>
+      <div class="pump-face">
+        <div class="pump-keys" id="pump-keys" aria-label="Pump soft keys"></div>
+        <div class="pump-screen" id="pump-screen" aria-live="polite">
+          <span id="pump-mode"></span>
+          <strong id="pump-value"></strong>
+          <span id="pump-detail"></span>
+        </div>
+      </div>
     </div>
   </div>
-  <section id="pump-history" hidden><h4>Pump event history</h4><ol></ol></section>
+  <details id="pump-history" hidden>
+    <summary>Review simulated bedside event log</summary>
+    <ol></ol>
+  </details>
 </dialog>
 <div id="chart-view" hidden>
   <div class="gpnd-nav"><button id="back-room" type="button" aria-controls="patient-room">Back to patient room</button></div>
