@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>NFS 5103 · Inpatient Nutrition Support</title>
+<link rel="stylesheet" href="shared/module10.css">
+<link rel="stylesheet" href="shared/encounter-layout.css">
+<style>[hidden]{display:none!important}.room{position:relative}.scene-chart{position:absolute;top:20%;left:2%;max-width:46%}.scene-patient{position:absolute;top:45%;left:50%;max-width:46%}</style></head>
+<body class="clinical-encounter">
+<a class="skip-link" href="#main">Skip to activity</a>
+<main id="main">
+<header>
+<p class="eyebrow">NFS 5103 · Competency Synthesis</p>
+<h1>Inpatient Nutrition Support</h1>
+<p>Meet Elena Reyes and develop an EN recommendation. Return when the PN encounter opens in Canvas.</p>
+</header>
+<nav class="actions" aria-label="Activity navigation">
+<a href="../../../index.html">← Learning Activities</a>
+<a href="?encounter=en">EN encounter</a>
+<a href="?encounter=pn" id="pn-preview">PN encounter preview</a>
+</nav>
+<section id="encounter" aria-labelledby="encounter-heading">
+<h2 id="encounter-heading"></h2>
+<nav class="actions" aria-label="Encounter navigation">
+<button id="room-button" type="button" aria-controls="room-view" aria-pressed="true">Patient room</button>
+<button id="chart-button" type="button" aria-controls="emr-workspace" aria-pressed="false">Open patient chart</button>
+</nav>
+<div class="workspace">
+<section aria-label="Patient room and chart">
+<div id="room-view">
+<div class="room">
+<img class="room-scene" src="room.webp" width="836" height="471" alt="Illustrative hospital room">
+<button type="button" id="scene-chart" class="scene-chart">Open chart</button>
+<button type="button" id="scene-patient" class="scene-patient">Talk with Elena</button>
+</div>
+<h3>Talk with the care team</h3>
+<div id="conversations"></div>
+</div>
+<div id="emr-workspace" hidden></div>
+</section>
+<aside class="assessment" aria-labelledby="assessment-heading">
+<h3 id="assessment-heading">Your recommendation</h3>
+<p>Use at least one chart finding and one conversation detail to explain your decisions.</p>
+<ol id="prompts"></ol>
+<p id="playlab-status">Preview. The PlayLab activity link will be added before student release.</p>
+</aside>
+</div>
+</section>
+<footer>Simulation only · All case details are fictional</footer>
+</main>
+<script type="module" src="case.mjs"></script>
+</body>
+</html>
