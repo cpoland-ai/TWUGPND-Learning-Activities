@@ -5,7 +5,7 @@ body { margin: 0; font: 1rem/1.55 system-ui, sans-serif; color: var(--ink); back
 .brand { background: #fff; padding: .85rem max(1rem, calc((100vw - 76rem)/2)); color: var(--maroon); font-weight: 750; }
 .brand a { color: inherit; }
 main { width: min(76rem, 100% - 2rem); margin: 1.6rem auto 3rem; }
-.hero { background: linear-gradient(115deg, #63071f, #850928 70%, #553453); color: white; padding: clamp(1.25rem, 4vw, 2.7rem); border-radius: .9rem; margin-bottom: 1.25rem; }
+.hero { background: var(--maroon); color: white; padding: clamp(1.25rem, 4vw, 2.7rem); border-radius: .9rem; margin-bottom: 1.25rem; }
 .hero p, h1 { margin: 0; }
 .hero p { margin-bottom: .35rem; }
 h1 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.13; }

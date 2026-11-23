@@ -23,18 +23,7 @@ const encounters = {
       MAR: 'IV maintenance fluids: See nursing intake record.',
       Notes: enNote,
       'Weight History': weightHistory
-    },
-    conversations: {
-      'Elena · patient': 'I barely ate for several days before surgery. The nausea has improved, but I still get full quickly.',
-      'Daughter · family': 'She usually finishes three meals. In the week before admission she was only eating a few bites at a time.',
-      'Bedside RN': 'The tube is available now. She has a test tomorrow morning, so tell us how you want interruptions handled.',
-      'Surgery provider': 'We have cleared the tube for use and would like your initial EN recommendation and what you plan to monitor.'
-    },
-    prompts: [
-      'Explain why EN fits this encounter and identify the information that influenced your decision.',
-      'Generate an initial EN recommendation. Include the regimen, rationale, and expected delivery.',
-      'State what you would monitor and what would make you reassess or communicate a change.'
-    ]
+    }
   },
   pn: {
     title: 'Hospital day 7 · PN consult',
@@ -48,18 +37,7 @@ const encounters = {
       MAR: 'IV maintenance fluids: Current orders include a dextrose-containing fluid.',
       Notes: 'Hospital day 7 — Surgery\nPostoperative complication. GI route temporarily unavailable. Request RDN recommendation for PN and reassessment plan.\n\n' + enNote,
       'Weight History': weightHistory
-    },
-    conversations: {
-      'Elena · patient': 'The tube feeding stopped yesterday. Is the IV nutrition temporary?',
-      'Daughter · family': 'She is worried this means she will never eat normally again. What should we expect next?',
-      'Bedside RN': 'No feeds since yesterday. Before you finalize, please review the current fluids and confirm what monitoring the team wants.',
-      'Surgery provider': 'The GI route is unavailable for now. Propose PN and tell us when you would reassess for a transition back to EN.'
-    },
-    prompts: [
-      'Explain what changed since the EN encounter and why you are recommending a different route.',
-      'Generate an initial PN recommendation. Include the regimen, rationale, and how you accounted for other sources.',
-      'Prioritize monitoring and describe when you would reassess, revise, or communicate the plan.'
-    ]
+    }
   }
 };
 
@@ -69,47 +47,11 @@ const element = id => document.getElementById(id);
 element('encounter-heading').textContent = encounter.title;
 element('pn-preview').hidden = stage === 'pn';
 
-for (const [speaker, response] of Object.entries(encounter.conversations)) {
-  const item = document.createElement('details');
-  const label = document.createElement('summary');
-  const content = document.createElement('p');
-  label.textContent = speaker;
-  content.textContent = response;
-  item.append(label, content);
-  element('conversations').append(item);
-}
-for (const prompt of encounter.prompts) {
-  const item = document.createElement('li');
-  item.textContent = prompt;
-  element('prompts').append(item);
-}
-
 const chart = element('emr-workspace');
-const room = element('room-workspace');
-const roomButton = element('room-button');
-const chartButton = element('chart-button');
 renderEMRView(chart, {
   caseData: {
     patient: { ...patient, encounter: encounter.title, consult: encounter.consult },
     chart: encounter.chart
   },
   assessmentLink: false
-});
-function showChart(open) {
-  room.hidden = open;
-  chart.hidden = !open;
-  roomButton.setAttribute('aria-pressed', String(!open));
-  chartButton.setAttribute('aria-pressed', String(open));
-}
-function openChart() {
-  showChart(true);
-  chart.querySelector('[role="tab"][aria-selected="true"]').focus();
-}
-roomButton.addEventListener('click', () => showChart(false));
-chartButton.addEventListener('click', openChart);
-element('scene-chart').addEventListener('click', openChart);
-element('scene-patient').addEventListener('click', () => {
-  const conversation = element('conversations').firstElementChild;
-  conversation.open = true;
-  conversation.querySelector('summary').focus();
 });
